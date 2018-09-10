@@ -62,6 +62,6 @@ func ProjectSave(userId string,projectId string,projectName string) string {
 			fmt.Println("project_save:",err)
 			return "error"
 		}
-		return string(projectId)
+		return projectId
 	}
 }

@@ -24,7 +24,7 @@ func SortList(projectId string) []models.ApidocSort {
 func SortSave(sortId string,projectId string,sortName string) string {
 	engine := xrom_mysql.Client()
 	sort := new(models.ApidocSort)
-	if projectId == "" {
+	if sortId == "" {
 		sort.SortId = base.UniqueId()
 		sort.ProjectId = projectId
 		sort.SortName = sortName
@@ -44,6 +44,6 @@ func SortSave(sortId string,projectId string,sortName string) string {
 			fmt.Println("sort_save:",err)
 			return "error"
 		}
-		return string(projectId)
+		return sortId
 	}
 }

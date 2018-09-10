@@ -46,7 +46,7 @@ func ApiSvae(apiId string,sortId string,projectId string,apiName string,apiEditC
 			fmt.Println("sort_save:",err)
 			return "error"
 		}
-		return string(projectId)
+		return apiId
 	}
 
 }
