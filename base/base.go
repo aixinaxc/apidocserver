@@ -79,6 +79,14 @@ func (rm *ReturnMsg) Code517()  {
 }
 
 //返回401数据
+func (rm *ReturnMsg) Code400()  {
+	rm.Code = 400
+	rm.Msg = "data loss"
+	rm.Total = 0
+	rm.Data = nil
+}
+
+//返回401数据
 func (rm *ReturnMsg) Code401()  {
 	rm.Code = 401
 	rm.Msg = "error"
@@ -87,9 +95,9 @@ func (rm *ReturnMsg) Code401()  {
 }
 
 //返回401数据
-func (rm *ReturnMsg) Code400()  {
-	rm.Code = 400
-	rm.Msg = "data loss"
+func (rm *ReturnMsg) Code402()  {
+	rm.Code = 402
+	rm.Msg = "user not logged in"
 	rm.Total = 0
 	rm.Data = nil
 }

@@ -12,13 +12,13 @@ func LoginMiddle(next echo.HandlerFunc) echo.HandlerFunc {
 		token := c.FormValue("token")
 		rm := new(base.ReturnMsg)
 		if userId == "" || token == "" {
-			rm.Code400()
+			rm.Code402()
 			return c.JSON(200,rm)
 		}
 		redisToken := redispool.RedisGET(userId + "_ticket")
 
 		if redisToken == nil || string(redisToken) == "" || string(redisToken) != token {
-			rm.Code401()
+			rm.Code402()
 			return c.JSON(200,rm)
 		}
 		return next(c)
