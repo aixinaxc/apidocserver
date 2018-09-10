@@ -5,6 +5,7 @@ import (
 	"github.com/labstack/echo/middleware"
 	"apidocserver/action"
 	"apidocserver/base"
+	"apidocserver/middle"
 )
 
 func main() {
@@ -16,13 +17,13 @@ func main() {
 	e.Static("/", "")
 	e.GET("/login", action.Login)
 	e.GET("/logout", action.Logout)
-	e.GET("/project/list", action.ProjectList)
-	e.POST("/project/save", action.ProjectSave)
-	e.GET("/sort/list", action.SortList)
-	e.GET("/sort/sort_api_list", action.SortApiList)
-	e.POST("/sort/save", action.SortSave)
-	e.GET("/api/content", action.ApiContent)
-	e.POST("/api/save", action.ApiSvae)
-	e.GET("/api/delete", action.ApiDelete)
+	e.GET("/project/list", action.ProjectList,middle.LoginMiddle)
+	e.POST("/project/save", action.ProjectSave,middle.LoginMiddle)
+	e.GET("/sort/list", action.SortList,middle.LoginMiddle)
+	e.GET("/sort/sort_api_list", action.SortApiList,middle.LoginMiddle)
+	e.POST("/sort/save", action.SortSave,middle.LoginMiddle)
+	e.GET("/api/content", action.ApiContent,middle.LoginMiddle)
+	e.POST("/api/save", action.ApiSvae,middle.LoginMiddle)
+	e.GET("/api/delete", action.ApiDelete,middle.LoginMiddle)
 	e.Logger.Fatal(e.Start(":9000"))
 }

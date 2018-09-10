@@ -13,11 +13,15 @@ import (
 func Login(c echo.Context) error {
 	username := c.FormValue("username")
 	password := c.FormValue("password")
+	rm := new(base.ReturnMsg)
+	if username == "" || password == "" {
+		rm.Code400()
+		return c.JSON(200,rm)
+	}
 	password = password + base.MD5
 	pass := md5.New()
 	pass.Write([]byte(password)) // 需要加密的字符串为buf.String()
 	user := dao.FindUser(username,hex.EncodeToString(pass.Sum(nil)))
-	rm := new(base.ReturnMsg)
 	if user.UserUsername != "" {
 		uuid := base.UniqueId()
 		fmt.Println(uuid)
@@ -35,7 +39,7 @@ func Logout(c echo.Context) error {
 	userId := c.FormValue("user_id")
 	rm := new(base.ReturnMsg)
 	if userId == "" {
-		rm.Code517()
+		rm.Code400()
 		return c.JSON(200,rm)
 	}
 	redispool.RedisDel(userId+"token")

@@ -27,8 +27,13 @@ func ProjectSave(c echo.Context) error {
 	projectId := c.FormValue("project_id")
 	projectName := c.FormValue("project_name")
 	fmt.Println("projectsave:",userId,projectId,projectName)
-	pId := dao.ProjectSave(userId,projectId,projectName)
 	rm := new(base.ReturnMsg)
+	if userId == "" || projectId == "" || projectName == ""{
+		rm.Code400()
+		return c.JSON(200,rm)
+	}
+	pId := dao.ProjectSave(userId,projectId,projectName)
+
 	if pId == "error"{
 		rm.Code401()
 	}else {
