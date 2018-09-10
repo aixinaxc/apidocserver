@@ -65,3 +65,15 @@ func ProjectSave(userId string,projectId string,projectName string) string {
 		return projectId
 	}
 }
+
+
+func ProjectDelete(projectId string) string {
+	engine := xrom_mysql.Client()
+	project := new(models.ApidocProject)
+	b,err := engine.Id(projectId).Delete(project)
+	fmt.Println(b,err)
+	if err != nil {
+		return "error"
+	}
+	return ""
+}

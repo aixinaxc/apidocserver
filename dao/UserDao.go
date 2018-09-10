@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+//获得用户列表
 func UserList() []models.ApidocUser {
 	engine := xrom_mysql.Client()
 	users := make([]models.ApidocUser,0)
@@ -20,7 +21,7 @@ func UserList() []models.ApidocUser {
 }
 
 
-
+//查找指定用户
 func FindUser(username string,password string) models.ApidocUser {
 	engine := xrom_mysql.Client()
 	user := new(models.ApidocUser)
@@ -29,6 +30,7 @@ func FindUser(username string,password string) models.ApidocUser {
 	return *user
 }
 
+//保存用户
 func UserSave(userId string,userName string,password string) string {
 	engine := xrom_mysql.Client()
 	user := new(models.ApidocUser)
@@ -53,4 +55,16 @@ func UserSave(userId string,userName string,password string) string {
 		}
 		return userId
 	}
+}
+
+//删除用户
+func UserDelete(userId string) string {
+	engine := xrom_mysql.Client()
+	user := new(models.ApidocUser)
+	b,err := engine.Id(userId).Delete(user)
+	fmt.Println(b,err)
+	if err != nil {
+		return "error"
+	}
+	return ""
 }
