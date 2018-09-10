@@ -39,7 +39,7 @@ func SortSave(sortId string,projectId string,sortName string) string {
 	}else {
 		sort.SortName = sortName
 		sort.UpdatedAt = int(time.Now().Unix())
-		_, err := engine.Id(projectId).Update(sort)
+		_, err := engine.Id(sortId).Update(sort)
 		if err != nil {
 			fmt.Println("sort_save:",err)
 			return "error"

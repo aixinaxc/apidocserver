@@ -23,7 +23,7 @@ func ApiContent(c echo.Context) error {
 func ApiSvae(c echo.Context) error {
 	apiId := c.FormValue("api_id")
 	projectId := c.FormValue("project_id")
-	sortId := c.FormValue("sortId")
+	sortId := c.FormValue("sort_id")
 	apiName := c.FormValue("api_name")
 	apiEditContent := c.FormValue("api_edit_content")
 	apiShowContent := c.FormValue("api_show_content")

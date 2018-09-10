@@ -41,7 +41,7 @@ func ApiSvae(apiId string,sortId string,projectId string,apiName string,apiEditC
 		return api.ApiId
 	}else {
 		api.UpdatedAt = int(time.Now().Unix())
-		_, err := engine.Id(projectId).Update(api)
+		_, err := engine.Id(apiId).Update(api)
 		if err != nil {
 			fmt.Println("sort_save:",err)
 			return "error"
