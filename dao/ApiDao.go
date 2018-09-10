@@ -12,7 +12,7 @@ import (
 func ApiList(projectId string) []models.ApidocApi {
 	engine := xrom_mysql.Client()
 	apis := make([]models.ApidocApi,0)
-	err:= engine.Cols("api_id", "sort_id","api_name").Asc("created_at").Where("project_id",projectId).Find(&apis)
+	err:= engine.Cols("api_id", "sort_id","api_name").Asc("created_at").Where("project_id  = ? ",projectId).Find(&apis)
 	if err!=nil {
 		fmt.Println(err)
 		return nil
@@ -49,4 +49,23 @@ func ApiSvae(apiId string,sortId string,projectId string,apiName string,apiEditC
 		return string(projectId)
 	}
 
+}
+
+func ApiContent(apiId string) models.ApidocApi {
+	engine := xrom_mysql.Client()
+	api := new(models.ApidocApi)
+	b,err := engine.Where("api_id = ? ",apiId).Get(api)
+	fmt.Println(b,err)
+	return *api
+}
+
+func ApiDelete(apiId string) string {
+	engine := xrom_mysql.Client()
+	api := new(models.ApidocApi)
+	b,err := engine.Id(apiId).Delete(api)
+	fmt.Println(b,err)
+	if err != nil {
+		return "error"
+	}
+	return ""
 }

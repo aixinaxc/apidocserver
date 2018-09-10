@@ -12,7 +12,7 @@ import (
 func SortList(projectId string) []models.ApidocSort {
 	engine := xrom_mysql.Client()
 	sorts := make([]models.ApidocSort,0)
-	err:= engine.Cols("sort_id", "sort_name").Asc("created_at").Where("project_id",projectId).Find(&sorts)
+	err:= engine.Cols("sort_id", "sort_name").Asc("created_at").Where("project_id = ?",projectId).Find(&sorts)
 	if err!=nil {
 		fmt.Println(err)
 		return nil

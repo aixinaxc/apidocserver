@@ -21,6 +21,8 @@ func main() {
 	e.GET("/sort/list", action.SortList)
 	e.GET("/sort/sort_api_list", action.SortApiList)
 	e.POST("/sort/save", action.SortSave)
+	e.GET("/api/content", action.ApiContent)
 	e.POST("/api/save", action.ApiSvae)
+	e.GET("/api/delete", action.ApiDelete)
 	e.Logger.Fatal(e.Start(":9000"))
 }
