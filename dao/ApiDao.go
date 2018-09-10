@@ -4,17 +4,49 @@ import (
 	"fmt"
 	"apidocserver/xrom_mysql"
 	"apidocserver/models"
+	"apidocserver/base"
+	"time"
 )
 
 //api列表
 func ApiList(projectId string) []models.ApidocApi {
 	engine := xrom_mysql.Client()
 	apis := make([]models.ApidocApi,0)
-	sql := "SELECT p.* FROM apidoc_project AS p,apidoc_user_project AS up WHERE p.project_id = up.project_id AND up.user_id = ?"
-	err:= engine.SQL(sql,projectId).Find(&apis)
+	err:= engine.Cols("api_id", "sort_id","api_name").Asc("created_at").Where("project_id",projectId).Find(&apis)
 	if err!=nil {
 		fmt.Println(err)
 		return nil
 	}
 	return apis
+}
+
+//api保存
+func ApiSvae(apiId string,sortId string,projectId string,apiName string,apiEditContent string,apiShowContent string) string {
+	engine := xrom_mysql.Client()
+	api := new(models.ApidocApi)
+	api.SortId = sortId
+	api.ProjectId = projectId
+	api.ApiName = apiName
+	api.ApiEditContent = apiEditContent
+	api.ApiShowContent = apiShowContent
+	if apiId == "" {
+		api.ApiId = base.UniqueId()
+		api.ApiState = 1
+		api.CreatedAt = int(time.Now().Unix())
+		_,err := engine.Insert(&api)
+		if err != nil {
+			fmt.Println("sort_save:",err)
+			return "error"
+		}
+		return api.ApiId
+	}else {
+		api.UpdatedAt = int(time.Now().Unix())
+		_, err := engine.Id(projectId).Update(api)
+		if err != nil {
+			fmt.Println("sort_save:",err)
+			return "error"
+		}
+		return string(projectId)
+	}
+
 }

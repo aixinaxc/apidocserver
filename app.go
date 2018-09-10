@@ -18,5 +18,9 @@ func main() {
 	e.GET("/logout", action.Logout)
 	e.GET("/project/list", action.ProjectList)
 	e.POST("/project/save", action.ProjectSave)
+	e.GET("/sort/list", action.SortList)
+	e.GET("/sort/sort_api_list", action.SortApiList)
+	e.POST("/sort/save", action.SortSave)
+	e.POST("/api/save", action.ApiSvae)
 	e.Logger.Fatal(e.Start(":9000"))
 }

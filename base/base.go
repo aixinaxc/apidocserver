@@ -85,3 +85,11 @@ func (rm *ReturnMsg) Code401()  {
 	rm.Total = 0
 	rm.Data = nil
 }
+
+//返回401数据
+func (rm *ReturnMsg) Code400()  {
+	rm.Code = 400
+	rm.Msg = "data loss"
+	rm.Total = 0
+	rm.Data = nil
+}
