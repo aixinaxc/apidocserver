@@ -3,14 +3,14 @@ package dao
 import (
 	"fmt"
 	"apidocserver/xrom_mysql"
-	"github.com/go-xorm/cmd/xorm/models"
 	"strings"
+	"apidocserver/models"
 )
 
 //获得用户项目关系
-func UserProjectList(userId string) []models.ApiUserProject {
+func UserProjectList(userId string) []models.ApidocUserProject {
 	engine := xrom_mysql.Client()
-	userProjects := make([]models.ApiUserProject,0)
+	userProjects := make([]models.ApidocUserProject,0)
 	var err error
 	if userId == "" {
 		err= engine.Find(&userProjects)
@@ -28,7 +28,7 @@ func UserProjectList(userId string) []models.ApiUserProject {
 func UserProjectSave(userId string,projectIds string) string {
 	projectIdArr := strings.Split(projectIds,",")
 	engine := xrom_mysql.Client()
-	userProject := new(models.ApiUserProject)
+	userProject := new(models.ApidocUserProject)
 	session := engine.NewSession()
 	defer session.Close()
 	err := session.Begin()
@@ -39,7 +39,7 @@ func UserProjectSave(userId string,projectIds string) string {
 		return "error"
 	}
 	for _,up := range projectIdArr {
-		userProject1 := new(models.ApiUserProject)
+		userProject1 := new(models.ApidocUserProject)
 		userProject1.UserId = userId
 		userProject1.ProjectId = up
 		_, err = session.Insert(userProject1)
