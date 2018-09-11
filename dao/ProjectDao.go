@@ -11,8 +11,14 @@ import (
 func ProjectList(userId string) []models.ApidocProject {
 	engine := xrom_mysql.Client()
 	projects := make([]models.ApidocProject,0)
-	sql := "SELECT p.* FROM apidoc_project AS p,apidoc_user_project AS up WHERE p.project_id = up.project_id AND up.user_id = ? ORDER BY created_at ASC"
-	err:= engine.SQL(sql,userId).Find(&projects)
+	var err error
+	if userId == "" {
+		err = engine.Asc("created_at").Find(&projects)
+	}else {
+		sql := "SELECT p.* FROM apidoc_project AS p,apidoc_user_project AS up WHERE p.project_id = up.project_id AND up.user_id = ? ORDER BY created_at ASC"
+		err = engine.SQL(sql,userId).Find(&projects)
+	}
+
 	if err!=nil {
 		fmt.Println(err)
 		return nil

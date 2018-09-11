@@ -9,7 +9,7 @@ import (
 
 //项目列表
 func ProjectList(c echo.Context) error {
-	userId := c.FormValue("user_id")
+	userId := c.FormValue("userId")
 	projects := dao.ProjectList(userId)
 	rm := new(base.ReturnMsg)
 	if projects == nil || len(projects) == 0 {

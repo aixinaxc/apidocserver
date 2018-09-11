@@ -12,7 +12,7 @@ import (
 func UserList() []models.ApidocUser {
 	engine := xrom_mysql.Client()
 	users := make([]models.ApidocUser,0)
-	err:= engine.Cols("user_id", "user_name").Asc("created_at").Where("user_id  <> '1' ").Find(&users)
+	err:= engine.Cols("user_id", "user_username","created_at").Asc("created_at").Where("user_id  <> '1' ").Find(&users)
 	if err!=nil {
 		fmt.Println(err)
 		return nil
@@ -40,9 +40,9 @@ func UserSave(userId string,userName string,password string) string {
 		user.UserId = base.UniqueId()
 		user.UserState = 1
 		user.CreatedAt = int(time.Now().Unix())
-		_,err := engine.Insert(&user)
-		if err != nil {
-			fmt.Println("sort_save:",err)
+		b := xrom_mysql.InsertXORMMsg(user)
+		if b != true {
+			fmt.Println("user_save:",b)
 			return "error"
 		}
 		return user.UserId
@@ -50,7 +50,7 @@ func UserSave(userId string,userName string,password string) string {
 		user.UpdatedAt = int(time.Now().Unix())
 		_, err := engine.Id(userId).Update(user)
 		if err != nil {
-			fmt.Println("sort_save:",err)
+			fmt.Println("user_save:",err)
 			return "error"
 		}
 		return userId
