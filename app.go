@@ -15,7 +15,7 @@ func main() {
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORS())
 	e.Static("/", "")
-	e.GET("/login", action.Login)
+	e.POST("/login", action.Login)
 	e.GET("/logout", action.Logout)
 
 	e.GET("/project/list", action.ProjectList,middle.LoginMiddle)
@@ -33,6 +33,6 @@ func main() {
 	e.POST("/user/save", action.UserSave,middle.LoginMiddle)
 	e.GET("/user/delete", action.UserDelete,middle.LoginMiddle)
 	e.POST("/user/user_project_save", action.UserProjectSave,middle.LoginMiddle)
-	e.Logger.Fatal(e.Start(":9000"))
+	e.Logger.Fatal(e.Start(":9001"))
 }
 
