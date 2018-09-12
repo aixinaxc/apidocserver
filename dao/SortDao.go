@@ -2,10 +2,10 @@ package dao
 
 import (
 	"fmt"
-	"github.com/go-xorm/cmd/xorm/models"
 	"apidocserver/xrom_mysql"
 	"apidocserver/base"
 	"time"
+	"apidocserver/models"
 )
 
 //api分类列表
@@ -30,7 +30,7 @@ func SortSave(sortId string,projectId string,sortName string) string {
 		sort.SortName = sortName
 		sort.Status = 1
 		sort.CreatedAt = int(time.Now().Unix())
-		_,err := engine.Insert(&sort)
+		_,err := engine.Insert(sort)
 		if err != nil {
 			fmt.Println("sort_save:",err)
 			return "error"

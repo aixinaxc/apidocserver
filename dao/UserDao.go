@@ -40,9 +40,9 @@ func UserSave(userId string,userName string,password string) string {
 		user.UserId = base.UniqueId()
 		user.UserState = 1
 		user.CreatedAt = int(time.Now().Unix())
-		b := xrom_mysql.InsertXORMMsg(user)
-		if b != true {
-			fmt.Println("user_save:",b)
+		_,err := engine.Insert(user)
+		if err != nil {
+			fmt.Println("sort_save:",err)
 			return "error"
 		}
 		return user.UserId

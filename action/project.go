@@ -28,7 +28,7 @@ func ProjectSave(c echo.Context) error {
 	projectName := c.FormValue("project_name")
 	fmt.Println("projectsave:",userId,projectId,projectName)
 	rm := new(base.ReturnMsg)
-	if userId == "" || projectId == "" || projectName == ""{
+	if userId == "" ||  projectName == ""{
 		rm.Code400()
 		return c.JSON(200,rm)
 	}
@@ -39,7 +39,7 @@ func ProjectSave(c echo.Context) error {
 	}else {
 		rm.Code200(1,pId)
 	}
-	return nil
+	return c.JSON(200,rm)
 }
 
 //删除项目
