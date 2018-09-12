@@ -3,7 +3,7 @@
 <code>golang 1.10</code> &nbsp; <code>echo 3.3</code>
 
 #### 测试地址：
-     http://apidoc.amagic.top
+                 http://apidoc.amagic.top
 
 #### 账号密码：
                 admin
