@@ -12,7 +12,7 @@
 
 #### Build Setup
 
-go build app.go
+                go build app.go
 
 ```
 
