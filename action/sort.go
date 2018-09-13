@@ -41,8 +41,12 @@ func SortSave(c echo.Context) error{
 	sortId := c.FormValue("sort_id")
 	projectId := c.FormValue("project_id")
 	sortName := c.FormValue("sort_name")
-	r := dao.SortSave(sortId,projectId,sortName)
 	rm := new(base.ReturnMsg)
+	if projectId == "" || sortName == ""{
+		rm.Code400()
+		return c.JSON(200,rm)
+	}
+	r := dao.SortSave(sortId,projectId,sortName)
 	if r == "error" {
 		rm.Code401()
 	}else {
