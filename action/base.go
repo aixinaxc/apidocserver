@@ -39,7 +39,7 @@ func Logout(c echo.Context) error {
 	userId := c.FormValue("user_id")
 	rm := new(base.ReturnMsg)
 	if userId == "" {
-		rm.Code400()
+		rm.Code200(0,nil)
 		return c.JSON(200,rm)
 	}
 	redispool.RedisDel(userId+"token")

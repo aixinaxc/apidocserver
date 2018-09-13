@@ -33,7 +33,7 @@ func ApiSvae(apiId string,sortId string,projectId string,apiName string,apiEditC
 		api.ApiId = base.UniqueId()
 		api.ApiState = 1
 		api.CreatedAt = int(time.Now().Unix())
-		_,err := engine.Insert(&api)
+		_,err := engine.Insert(api)
 		if err != nil {
 			fmt.Println("sort_save:",err)
 			return "error"
