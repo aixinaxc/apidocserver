@@ -8,7 +8,7 @@ import (
 	"time"
 )
 //获得项目列表
-func ProjectList(userId string) []models.ApidocProject {
+func ProjectList(userId string) ([]models.ApidocProject,int64) {
 	engine := xrom_mysql.Client()
 	projects := make([]models.ApidocProject,0)
 	var err error
@@ -21,9 +21,10 @@ func ProjectList(userId string) []models.ApidocProject {
 
 	if err!=nil {
 		fmt.Println(err)
-		return nil
+		return nil,0
 	}
-	return projects
+	t := int64(len(projects))
+	return projects,t
 }
 
 //编辑项目

@@ -9,12 +9,15 @@ import (
 )
 
 func UserList(c echo.Context) error {
-	users := dao.UserList()
+	pageNum := c.FormValue("page_num")
+	pageSize := c.FormValue("page_size")
+	pS,of := base.Offer(pageNum,pageSize)
+	users,count := dao.UserList(pS,of)
 	rm := new(base.ReturnMsg)
 	if users == nil {
 		rm.Code401()
 	}else {
-		rm.Code200(len(users),users)
+		rm.Code200(count,users)
 	}
 	return c.JSON(200,rm)
 }

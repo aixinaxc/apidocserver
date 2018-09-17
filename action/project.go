@@ -10,12 +10,12 @@ import (
 //项目列表
 func ProjectList(c echo.Context) error {
 	userId := c.FormValue("userId")
-	projects := dao.ProjectList(userId)
+	projects,total := dao.ProjectList(userId)
 	rm := new(base.ReturnMsg)
 	if projects == nil || len(projects) == 0 {
 		rm.Code517()
 	}else {
-		rm.Code200(len(projects),projects)
+		rm.Code200(total,projects)
 	}
 	return c.JSON(200,rm)
 }

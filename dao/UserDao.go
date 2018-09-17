@@ -9,15 +9,17 @@ import (
 )
 
 //获得用户列表
-func UserList() []models.ApidocUser {
+func UserList(pageSize int,offer int) ([]models.ApidocUser,int64){
 	engine := xrom_mysql.Client()
 	users := make([]models.ApidocUser,0)
-	err:= engine.Cols("user_id", "user_username","created_at").Asc("created_at").Where("user_id  <> '1' ").Find(&users)
+	err:= engine.Cols("user_id", "user_username","created_at").Asc("created_at").Where("user_id  <> '1' ").Limit(pageSize,offer).Find(&users)
+	user := new(models.ApidocUser)
+	total, err := engine.Where("user_id  <> '1'").Count(user)
 	if err!=nil {
 		fmt.Println(err)
-		return nil
+		return nil,0
 	}
-	return users
+	return users,total
 }
 
 

@@ -8,6 +8,8 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"reflect"
+	"strconv"
+	"fmt"
 )
 
 const MD5  = "12qw12er34sd"
@@ -23,6 +25,24 @@ const (
 	RedisMaxActive = 5
 	RedisMIdleTimeout = 240 * time.Second
 )
+
+//分页
+func Offer(pageNum,pageSize string) (int,int) {
+	pN,err:=strconv.Atoi(pageNum)
+	if err!= nil{
+		fmt.Println("offer_err:",err)
+		return 0,0
+	}
+	pS,err:=strconv.Atoi(pageSize)
+	if err!= nil{
+		fmt.Println("offer_err:",err)
+		return 0,0
+	}
+	of := (pN-1) * pS
+
+	return pS,of
+}
+
 
 //生成32位md5字串
 func GetMd5String(s string) string {
@@ -57,12 +77,12 @@ func Struct2Map(obj interface{}) (data map[string]interface{}, err error) {
 type ReturnMsg struct {
 	Code int `json:"code"`
 	Msg string `json:"msg"`
-	Total int `json:"total"`
+	Total int64 `json:"total"`
 	Data interface{} `json:"data"`
 }
 
 //返回200数据
-func (rm *ReturnMsg) Code200(t int,d interface{})  {
+func (rm *ReturnMsg) Code200(t int64,d interface{})  {
 	rm.Code = 200
 	rm.Msg = "OK"
 	rm.Total = t
