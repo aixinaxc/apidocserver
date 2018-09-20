@@ -11,7 +11,10 @@
 
 
 #### Build Setup
-                本项目用redis保存了用户的登录token，所以在启动项目时先配置启动redis
+                本项目用redis保存了用户的登录token
+                本项目采用MySql保存基础数据
+                你可以在conf.yaml文件中配置redis和MySql的基础信息
+
                 
                 go build app.go
 
