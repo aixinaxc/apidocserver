@@ -44,6 +44,14 @@ func ProjectSave(c echo.Context) error {
 
 //删除项目
 func ProjectDelete(c echo.Context) error {
-
-	return nil
+	projectId := c.FormValue("project_id")
+	fmt.Println("peojectId",projectId)
+	r := dao.ProjectDelete(projectId)
+	rm := new(base.ReturnMsg)
+	if r == "error" {
+		rm.Code401()
+	}else {
+		rm.Code200(0,nil)
+	}
+	return c.JSON(200,rm)
 }

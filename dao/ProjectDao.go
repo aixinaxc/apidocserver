@@ -80,6 +80,7 @@ func ProjectDelete(projectId string) string {
 	b,err := engine.Id(projectId).Delete(project)
 	fmt.Println(b,err)
 	if err != nil {
+		fmt.Println("ProjectDelete:",err)
 		return "error"
 	}
 	return ""

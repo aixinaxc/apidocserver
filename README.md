@@ -15,7 +15,7 @@
                 本项目采用MySql保存基础数据
                 你可以在conf.yaml文件中配置redis和MySql的基础信息
 
-                
+
                 go build app.go
 
 
