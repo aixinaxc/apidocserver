@@ -23,7 +23,7 @@
                xorm：go get github.com/go-xorm/xorm
                mysql驱动：go get github.com/go-sql-driver/mysql
                redis库：go get github.com/garyburd/redigo/redis
-
+               websocket库：go get github.com/gorilla/websocket
 
 
 
