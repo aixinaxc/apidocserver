@@ -24,6 +24,7 @@
                mysql驱动：go get github.com/go-sql-driver/mysql
                redis库：go get github.com/garyburd/redigo/redis
                websocket库：go get github.com/gorilla/websocket
+               yaml解析库：go get github.com/kylelemons/go-gypsy/yaml
 
 
 
