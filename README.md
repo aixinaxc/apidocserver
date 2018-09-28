@@ -18,6 +18,13 @@
 
                 go build app.go
 
+#### 需要下载库
+               web框架：go get github.com/labstack/echo
+               xorm：go get github.com/go-xorm/xorm
+               mysql驱动：go get github.com/go-sql-driver/mysql
+               redis库：go get github.com/garyburd/redigo/redis
+
+
 
 
 #### Contact me:
