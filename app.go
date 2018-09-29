@@ -34,6 +34,8 @@ func main() {
 	e.POST("/user/save", action.UserSave,middle.LoginMiddle)
 	e.GET("/user/delete", action.UserDelete,middle.LoginMiddle)
 	e.POST("/user/user_project_save", action.UserProjectSave,middle.LoginMiddle)
+
+	e.GET("/ws", action.IMSever)
 	e.Logger.Fatal(e.Start(":9001"))
 }
 
