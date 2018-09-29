@@ -9,6 +9,7 @@ import (
 	"sync"
 	"apidocserver/models"
 	"apidocserver/xrom_mysql"
+	"io/ioutil"
 )
 
 var CH_NUM = 1000
@@ -58,6 +59,10 @@ func analysis(c echo.Context,msg []byte,ws *websocket.Conn) error {
 		MsgHandle(c,imMsg.MsgFromId,imMsg.MsgId,[]byte(m))
 		return nil
 	}
+	if imMsg.MsgContentType == "im_img" {
+		fileSave(imMsg.MsgContent.FileName,imMsg.MsgContent.File)
+		imMsg.MsgContent.File = nil
+	}
 	if imMsg.MsgType == "client" {
 		imMap[imMsg.MsgFromId] = ws
 		MsgHandle(c,imMsg.MsgFromId,imMsg.MsgId,msg)
@@ -65,7 +70,7 @@ func analysis(c echo.Context,msg []byte,ws *websocket.Conn) error {
 	}else if imMsg.MsgType == "p2p" {
 		c.Logger().Error("消息：",imMsg)
 		//把接收的数据插入表中
-		xrom_mysql.InsertXORMMsg(imMsg)
+		//xrom_mysql.InsertXORMMsg(imMsg)
 		//把数据发送出去
 		MsgHandle(c,imMsg.MsgFromId,imMsg.MsgId,msg)
 		if ok := imMap[imMsg.MsgToId] != nil;ok {
@@ -122,4 +127,11 @@ func Broadcast(c echo.Context,m models.Msg) error {
 		redispool.RedisSETString("msg_"+m.Id,msgIds,0)*/
 	}
 	return nil
+}
+
+func fileSave(fileName string,data []byte)  {
+	err := ioutil.WriteFile("./img/"+fileName, data, 0666)   //buffer输出到jpg文件中（不做处理，直接写到文件）
+	if err != nil {
+		fmt.Println("文件保存err:",err)
+	}
 }
