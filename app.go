@@ -35,7 +35,10 @@ func main() {
 	e.GET("/user/delete", action.UserDelete,middle.LoginMiddle)
 	e.POST("/user/user_project_save", action.UserProjectSave,middle.LoginMiddle)
 
+	e.GET("/msg_list", action.MsgList)
 	e.GET("/ws", action.IMSever)
+
+	e.GET("/group/list",action.GroupList,middle.LoginMiddle)
 	e.Logger.Fatal(e.Start(":9001"))
 }
 
