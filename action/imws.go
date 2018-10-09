@@ -72,7 +72,7 @@ func analysis(c echo.Context,msg []byte,ws *websocket.Conn) error {
 		//把接收的数据插入表中
 		xrom_mysql.InsertXORMMsg(imMsg)
 		//把数据发送出去
-		MsgHandle(c,imMsg.MsgFromId,imMsg.MsgId,msg)
+		//MsgHandle(c,imMsg.MsgFromId,imMsg.MsgId,msg)
 		if ok := imMap[imMsg.MsgToId] != nil;ok {
 			MsgHandle(c,imMsg.MsgToId,imMsg.MsgId,msg)
 		}

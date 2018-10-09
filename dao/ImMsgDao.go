@@ -47,7 +47,13 @@ func MsgList(userFromId string,userToId string,startTime string,endTime string,m
 			if err!=nil {
 				fmt.Println("获取数量错误：",err)
 			}
-			err = engine.Where(sql).Asc("created_at").Limit(itotal,int(count)-itotal).Find(&msg)
+			var i = 0
+			if count <= 10 {
+				i = 0
+			}else {
+				i = int(count)-itotal
+			}
+			err = engine.Where(sql).Asc("created_at").Limit(itotal,i).Find(&msg)
 		}
 
 	}
