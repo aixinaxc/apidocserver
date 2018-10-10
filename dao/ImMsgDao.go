@@ -4,12 +4,13 @@ import (
 	"fmt"
 	"apidocserver/models"
 	"apidocserver/xrom_mysql"
-	"strconv"
+	"apidocserver/base"
 )
 //获得用户聊天列表
 //p2p 点对点单聊
 //group 群聊
-func MsgList(userFromId string,userToId string,startTime string,endTime string,msgType string,total string) ([]models.ImMsg,error) {
+func MsgList(userFromId string,userToId string,startTime string,endTime string,msgType string,
+	pageNum string,pageSize string) ([]models.ImMsg,int64,error) {
 	sql := " 1 = 1 "
 	if userFromId != "" && userToId!=""{
 		if msgType == "p2p" {
@@ -29,35 +30,27 @@ func MsgList(userFromId string,userToId string,startTime string,endTime string,m
 	engine := xrom_mysql.Client()
 	if engine == nil {
 		fmt.Println("mysql连接失败")
-		return nil,nil
+		return nil,0,nil
 	}
 	var err error
+	var count int64
 	if userFromId == "" && userToId == "" && startTime == "" && endTime == ""{
 		err = engine.Asc("created_at").Find(&msg)
 	}else {
-		if  total == "0" {
+		if  pageNum == "0" || pageSize == "0"{
 			err = engine.Where(sql).Asc("created_at").Find(&msg)
 		}else {
-			itotal,err:=strconv.Atoi(total)
-			if err!=nil {
-				fmt.Println("转化错误：",err)
-			}
+			pS,of := base.Offer(pageNum,pageSize)
 			m := new(models.ImMsg)
-			count, err := engine.Where(sql).Count(m)
+			count, err = engine.Where(sql).Count(m)
 			if err!=nil {
 				fmt.Println("获取数量错误：",err)
 			}
-			var i = 0
-			if count <= 10 {
-				i = 0
-			}else {
-				i = int(count)-itotal
-			}
-			err = engine.Where(sql).Asc("created_at").Limit(itotal,i).Find(&msg)
+			err = engine.Where(sql).Asc("created_at").Limit(pS,of).Find(&msg)
 		}
 
 	}
-	return msg,err
+	return msg,count,err
 }
 
 

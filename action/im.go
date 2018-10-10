@@ -14,7 +14,8 @@ func MsgList(c echo.Context) error {
 	startTime := c.FormValue("start_time")
 	endTime := c.FormValue("end_time")
 	msgType := c.FormValue("msg_type")
-	total := c.FormValue("total")
+	pageNum := c.FormValue("page_num")
+	pageSize := c.FormValue("page_size")
 	rm := new(base.ReturnMsg)
 	if userFromId == "" || userToId == "" {
 		rm.Code400()
@@ -24,12 +25,12 @@ func MsgList(c echo.Context) error {
 	fmt.Println("userToId:",userToId)
 	fmt.Println("startTime:",startTime)
 	fmt.Println("endTime:",endTime)
-	msg,err := dao.MsgList(userFromId,userToId,startTime,endTime,msgType,total)
+	msg,count,err := dao.MsgList(userFromId,userToId,startTime,endTime,msgType,pageNum,pageSize)
 	if err != nil {
 		fmt.Println("数据查询错误：",err)
 		rm.Code401()
 	}else {
-		rm.Code200(0,msg)
+		rm.Code200(count,msg)
 	}
 	return c.JSON(200,rm)
 }
