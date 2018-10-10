@@ -83,7 +83,9 @@ func analysis(c echo.Context,msg []byte,ws *websocket.Conn) error {
 		if groups != nil {
 			for _,group := range groups {
 				fmt.Println("待发送用户为：",string(group["user_id"]))
-				MsgHandle(c,string(group["user_id"]),imMsg.MsgId,msg)
+				if string(group["user_id"]) != imMsg.MsgFromId {
+					MsgHandle(c,string(group["user_id"]),imMsg.MsgId,msg)
+				}
 			}
 		}
 	} else if imMsg.MsgType == "logout" {
