@@ -37,12 +37,12 @@ func MsgList(userFromId string,userToId string,startTime string,endTime string,m
 	if userFromId == "" && userToId == "" && startTime == "" && endTime == ""{
 		err = engine.Asc("created_at").Find(&msg)
 	}else {
+		m := new(models.ImMsg)
+		count, err = engine.Where(sql).Count(m)
 		if  pageNum == "0" || pageSize == "0"{
 			err = engine.Where(sql).Asc("created_at").Find(&msg)
 		}else {
 			pS,of := base.Offer(pageNum,pageSize)
-			m := new(models.ImMsg)
-			count, err = engine.Where(sql).Count(m)
 			if err!=nil {
 				fmt.Println("获取数量错误：",err)
 			}
