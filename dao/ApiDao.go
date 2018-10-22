@@ -8,6 +8,19 @@ import (
 	"time"
 )
 
+
+//api列表
+func ApiContentList(projectId string) []models.ApidocApi {
+	engine := xrom_mysql.Client()
+	apis := make([]models.ApidocApi,0)
+	err:= engine.Cols("api_id", "sort_id","api_show_content","api_edit_content","api_name").Asc("created_at").Where("project_id  = ? ",projectId).Find(&apis)
+	if err!=nil {
+		fmt.Println(err)
+		return nil
+	}
+	return apis
+}
+
 //api列表
 func ApiList(projectId string) []models.ApidocApi {
 	engine := xrom_mysql.Client()

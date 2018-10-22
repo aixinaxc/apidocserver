@@ -6,6 +6,24 @@ import (
 	"apidocserver/base"
 )
 
+//获得api列表
+func ApiList(c echo.Context) error {
+	projectId := c.FormValue("project_id")
+	rm := new(base.ReturnMsg)
+	if projectId == "" {
+		rm.Code400()
+		return c.JSON(200,rm)
+	}
+	api := dao.ApiContentList(projectId)
+	if api == nil {
+		rm.Code401()
+	}else {
+		rm.Code200(0,api)
+	}
+	return c.JSON(200,rm)
+}
+
+
 //获得api内容
 func ApiContent(c echo.Context) error {
 	apiId := c.FormValue("api_id")

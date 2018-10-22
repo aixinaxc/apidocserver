@@ -26,6 +26,7 @@ func main() {
 	e.GET("/sort/sort_api_list", action.SortApiList,middle.LoginMiddle)
 	e.POST("/sort/save", action.SortSave,middle.LoginMiddle)
 
+	e.GET("/api/list", action.ApiList)
 	e.GET("/api/content", action.ApiContent,middle.LoginMiddle)
 	e.POST("/api/save", action.ApiSvae,middle.LoginMiddle)
 	e.GET("/api/delete", action.ApiDelete,middle.LoginMiddle)
