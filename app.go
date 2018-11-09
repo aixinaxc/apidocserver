@@ -23,8 +23,10 @@ func main() {
 	e.GET("/project/delete", action.ProjectDelete,middle.LoginMiddle)
 
 	e.GET("/sort/list", action.SortList,middle.LoginMiddle)
+	e.GET("/sort/plist", action.SortPList,middle.LoginMiddle)
 	e.GET("/sort/sort_api_list", action.SortApiList,middle.LoginMiddle)
 	e.POST("/sort/save", action.SortSave,middle.LoginMiddle)
+	e.GET("/sort/delete", action.SortDelete,middle.LoginMiddle)
 
 	e.GET("/api/list", action.ApiList)
 	e.GET("/api/content", action.ApiContent,middle.LoginMiddle)

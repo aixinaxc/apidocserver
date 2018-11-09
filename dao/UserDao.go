@@ -12,7 +12,7 @@ import (
 func UserList(pageSize int,offer int) ([]models.ApidocUser,int64){
 	engine := xrom_mysql.Client()
 	users := make([]models.ApidocUser,0)
-	err:= engine.Cols("user_id", "user_username","created_at").Asc("created_at").Where("user_id  <> '1' ").Limit(pageSize,offer).Find(&users)
+	err:= engine.Cols("user_id", "user_username","created_at").Desc("created_at").Where("user_id  <> '1' ").Limit(pageSize,offer).Find(&users)
 	user := new(models.ApidocUser)
 	total, err := engine.Where("user_id  <> '1'").Count(user)
 	if err!=nil {
