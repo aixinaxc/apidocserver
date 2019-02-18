@@ -13,10 +13,8 @@ import (
 func Login(c echo.Context) error {
 	username := c.FormValue("username")
 	password := c.FormValue("password")
-	rm := new(base.ReturnMsg)
 	if username == "" || password == "" {
-		rm.Code400()
-		return c.JSON(200,rm)
+		return c.JSON(200,base.RetunMsgFunc(base.CodeDataLoss,0,nil))
 	}
 	password = password + base.MD5
 	pass := md5.New()
@@ -28,21 +26,16 @@ func Login(c echo.Context) error {
 		userMap,_ := base.Struct2Map(user)
 		userMap["Token"] = uuid
 		redispool.RedisSETString(user.UserId + "_ticket",uuid,0)
-		rm.Code200(1,userMap)
-		return c.JSON(200,rm)
+		return c.JSON(200,base.RetunMsgFunc(base.CodeDataSuccess,1,userMap))
 	}
-	rm.Code517()
-	return c.JSON(200,rm)
+	return c.JSON(200,base.RetunMsgFunc(base.CodeDataEmpty,0,nil))
 }
 
 func Logout(c echo.Context) error {
 	userId := c.FormValue("user_id")
-	rm := new(base.ReturnMsg)
 	if userId == "" {
-		rm.Code200(0,nil)
-		return c.JSON(200,rm)
+		return c.JSON(200,base.RetunMsgFunc(base.CodeDataSuccess,0,nil))
 	}
 	redispool.RedisDel(userId+"token")
-	rm.Code200(0,nil)
-	return c.JSON(200,rm)
+	return c.JSON(200,base.RetunMsgFunc(base.CodeDataSuccess,0,nil))
 }

@@ -74,7 +74,7 @@ func Struct2Map(obj interface{}) (data map[string]interface{}, err error) {
 }
 
 
-type ReturnMsg struct {
+/*type ReturnMsg struct {
 	Code int `json:"code"`
 	Msg string `json:"msg"`
 	Total int64 `json:"total"`
@@ -120,4 +120,40 @@ func (rm *ReturnMsg) Code402()  {
 	rm.Msg = "user not logged in"
 	rm.Total = 0
 	rm.Data = nil
+}*/
+
+
+//--------Code返回码结构体
+type Code struct {
+	Code int
+	Msg string
+}
+
+//--------定义返回码，以及返回信息
+var (
+	CodeDataSuccess = Code{Code:200,Msg:"success"}
+	CodeDataEmpty = Code{Code:517,Msg:"empty"}
+	CodeDataLoss = Code{Code:400,Msg:"data loss"}
+	CodeDataError = Code{Code:401,Msg:"data error"}
+	CodeUserNotLogin = Code{Code:402,Msg:"user not logged in"}
+)
+
+
+
+//--------对需要返回的信息进行封装，方便对数据进行进一步处理
+type ReturnMsg struct {
+	Code int `json:"code"`
+	Msg string `json:"msg"`
+	Total int64 `json:"total"`
+	Data interface{} `json:"data"`
+}
+
+//--------对需要返回的信息进行赋值，并以结构体返回
+func RetunMsgFunc(code Code,total int64,data interface{}) *ReturnMsg  {
+	rm := new(ReturnMsg)
+	rm.Code = code.Code
+	rm.Msg = code.Msg
+	rm.Total = total
+	rm.Data = data
+	return rm
 }

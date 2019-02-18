@@ -10,11 +10,8 @@ import (
 func GroupList(c echo.Context) error{
 	userId := c.FormValue("user_id")
 	groupList := dao.GroupListByUserId(userId)
-	rm := new(base.ReturnMsg)
 	if groupList == nil {
-		rm.Code401()
-	}else {
-		rm.Code200(0,groupList)
+		return c.JSON(200,base.RetunMsgFunc(base.CodeDataError,0,nil))
 	}
-	return c.JSON(200,rm)
+	return c.JSON(200,base.RetunMsgFunc(base.CodeDataSuccess,0,groupList))
 }

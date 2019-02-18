@@ -15,7 +15,7 @@ func Client() *xorm.Engine {
 	engine.SetConnMaxLifetime(base.MysqlMaxLifetime)
 	engine.SetMaxOpenConns(base.MysqlMaxOpenConn)
 	engine.SetMaxIdleConns(base.MysqlMaxIdleConn)
-	engine.ShowSQL(true)
+	engine.ShowSQL(false)
 	err = engine.Ping()
 	if err != nil {
 		fmt.Println("mysql没有ping成功",err)
