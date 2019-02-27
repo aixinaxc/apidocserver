@@ -33,7 +33,7 @@ func ProjectSave(c echo.Context) error {
 	return c.JSON(200,base.RetunMsgFunc(base.CodeDataSuccess,1,pId))
 }
 
-//删除项目
+//删除项目project
 func ProjectDelete(c echo.Context) error {
 	projectId := c.FormValue("project_id")
 	fmt.Println("peojectId",projectId)
