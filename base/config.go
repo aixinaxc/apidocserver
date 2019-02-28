@@ -22,7 +22,6 @@ func Config()  {
 	if err != nil{
 		fmt.Println("config-data:",err)
 	}
-	fmt.Println("config:",RedisUrl)
-	fmt.Println("config:",RedisPassword)
-	fmt.Println("config:",MysqlUrl)
+	fmt.Println("redis_config:",RedisUrl,RedisPassword)
+	fmt.Println("mysql_config:",MysqlUrl)
 }
