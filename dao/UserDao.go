@@ -22,6 +22,15 @@ func UserList(pageSize int,offer int) ([]models.ApidocUser,int64){
 	return users,total
 }
 
+//根据用户名查找用户
+func FindUserName(username string)  models.ApidocUser {
+	engine := xrom_mysql.Client()
+	user := new(models.ApidocUser)
+	b,err := engine.Where("user_username = ?",username).Get(user)
+	fmt.Println(b,err)
+	return *user
+}
+
 
 //查找指定用户
 func FindUser(username string,password string) models.ApidocUser {

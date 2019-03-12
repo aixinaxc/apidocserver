@@ -26,6 +26,10 @@ func UserSave(c echo.Context) error {
 	if username == "" || password == "" {
 		return c.JSON(200,base.RetunMsgFunc(base.CodeDataLoss,0,nil))
 	}
+	user := dao.FindUserName(username)
+	if user.UserUsername != "" {
+		return c.JSON(200,base.RetunMsgFunc(base.CodeUserHas,0,nil))
+	}
 	password = password + base.MD5
 	pass := md5.New()
 	pass.Write([]byte(password)) // 需要加密的字符串为buf.String()

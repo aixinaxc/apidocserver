@@ -136,6 +136,7 @@ var (
 	CodeDataLoss = Code{Code:400,Msg:"data loss"}
 	CodeDataError = Code{Code:401,Msg:"data error"}
 	CodeUserNotLogin = Code{Code:402,Msg:"user not logged in"}
+	CodeUserHas = Code{Code:403,Msg:"user has"}
 )
 
 
