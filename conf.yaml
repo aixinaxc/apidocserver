@@ -1,3 +1,3 @@
-MysqlUrl : db:123456@tcp(192.168.2.150:3306)/apidoc?charset=utf8mb4
+MysqlUrl : db:123456@tcp(192.168.1.150:3306)/apidoc?charset=utf8mb4
 RedisUrl : 127.0.0.1:6379
 RedisPassword : 123456

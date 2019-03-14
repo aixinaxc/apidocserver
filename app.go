@@ -32,6 +32,7 @@ func main() {
 	e.GET("/api/content", action.ApiContent,middle.LoginMiddle)
 	e.POST("/api/save", action.ApiSvae,middle.LoginMiddle)
 	e.GET("/api/delete", action.ApiDelete,middle.LoginMiddle)
+	e.POST("/api/upload", action.FileUpload)
 
 	e.GET("/user/list", action.UserList,middle.LoginMiddle)
 	e.POST("/user/save", action.UserSave,middle.LoginMiddle)
