@@ -1,4 +1,4 @@
-name: Go
+name: apidoc
 on: [push]
 jobs:
 
@@ -24,5 +24,5 @@ jobs:
             dep ensure
         fi
 
-    - name: Build
-      run: go build -v .
+    - name: Build apidoc
+      run: go build app.go
